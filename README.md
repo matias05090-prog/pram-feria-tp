@@ -4,7 +4,7 @@
 
 ## Abrir la web
 
-Abre `index.html` en un navegador moderno. Conserva `styles.css`, `app.js` y la carpeta `assets` junto al archivo. Todo el contenido y las herramientas funcionan sin dependencias externas. Solo los enlaces de contacto requieren Internet.
+Abre `index.html` en un navegador moderno. Conserva las ocho páginas HTML, `styles.css`, `app.js` y la carpeta `assets` juntas. Todo el contenido y las herramientas funcionan sin dependencias externas. Solo los enlaces de contacto requieren Internet.
 
 Para una dirección local estable y un guardado consistente, si tienes Node.js instalado:
 
@@ -15,6 +15,8 @@ npm start
 Abre `http://127.0.0.1:4173`. El servidor escucha únicamente en este equipo. No hace falta ejecutar `npm install`.
 
 ## Qué incluye
+
+Ocho páginas independientes: `index.html` (bienvenida), `menu.html` (accesos), `proyecto.html`, `protocolos.html`, `gestion.html`, `ideas.html`, `isimiya.html` y `carta.html`. La navegación y los enlaces de regreso permiten pasar de una sección a otra. La carta contiene sus cuatro categorías y las 32 opciones del material original.
 
 - Diseño adaptable a móviles, tabletas y computadores, navegación por teclado y soporte de movimiento reducido.
 - Tres protocolos: atención, reclamos y seguimiento. Listas de verificación, responsable, compromiso de primera respuesta y descarga en TXT.
@@ -38,7 +40,7 @@ Usa datos ficticios durante la feria. El botón de borrado solicita confirmació
 
 ## Contenido y fuentes
 
-Base: `PRAM-atencion-clientes-v5.html` y `PRAM-atencion`, entregados por el equipo. La variante v6 disponible en Descargas era una portada con enlaces a otra página; esta versión integra directamente presentación y herramientas para evitar pasos y destinos faltantes.
+Base: `PRAM-atencion-clientes-v5.html` y `PRAM-atencion`, entregados por el equipo. La variante v6 disponible en Descargas era una portada con enlaces a otra página; esta versión separa bienvenida, menú, proyecto, protocolos, herramientas, ideas, caso IsiMiya y carta en páginas conectadas entre sí.
 
 Las 15 respuestas y los porcentajes del sondeo son antecedentes declarados en la versión original, sin verificación independiente. Las metas de +20%, −15% y +30% son propuestas pendientes de línea base e implementación. Los precios de IsiMiya se conservan como referencia y requieren confirmación por el negocio. No se presentan como precios vigentes verificados.
 
@@ -46,25 +48,23 @@ Las fotografías originales se han convertido a WebP para reducir el peso sin al
 
 ## Integración con GitHub
 
-La carpeta de trabajo incluye control de versiones local y un workflow en `.github/workflows/pages.yml` para verificar recursos y publicar en GitHub Pages. El ZIP contiene el código y la configuración, sin el historial `.git`. La configuración remota se debe comprobar en la cuenta del titular; incluir este archivo por sí solo no publica la página.
+**Web publicada:** https://matias05090-prog.github.io/pram-feria-tp/
 
-1. Iniciar sesión en [GitHub](https://github.com/login).
-2. Crear un repositorio llamado `pram-feria-tp`, o elegir uno existente destinado a este proyecto. Para guardar el código sin publicarlo puede ser privado. GitHub Pages con GitHub Free requiere un repositorio público; en planes compatibles puede usar repositorios privados.
-3. Subir el contenido de esta carpeta a la raíz del repositorio, incluida `.github`. No subir el ZIP ni datos exportados de visitantes.
-4. Para publicarlo, abrir **Settings → Pages → Build and deployment → Source → GitHub Actions**. El sitio web publicado será accesible según la configuración de Pages. Revisar los contactos y el contenido antes de hacerlo público.
-5. Ejecutar el workflow **Verificar y publicar PRAM** desde **Actions**, o subir un cambio a `main`.
-6. Esperar el resultado correcto del despliegue; la dirección real aparecerá en **Settings → Pages** y en el workflow. No considerar publicado el sitio hasta confirmar ese resultado.
+**Repositorio público:** https://github.com/matias05090-prog/pram-feria-tp
 
-Si trabajas desde el ZIP y quieres usar Git, inicialízalo primero con `git init -b main`, `git add .` y `git commit -m "Iniciar PRAM"`. Git puede pedirte configurar tu nombre y correo de autor. La carpeta de trabajo ya tiene un commit local identificado como Equipo PRAM.
+GitHub Pages utiliza **GitHub Actions** como origen de publicación. El workflow `.github/workflows/pages.yml` verifica la sintaxis y los enlaces, prepara las ocho páginas con sus recursos y publica al actualizar `main`. Las pull requests ejecutan la verificación sin publicar. El primer despliegue terminó correctamente.
 
-Si ya tienes Git configurado y un repositorio remoto vacío, desde esta carpeta:
+Para editar, puedes abrir el repositorio y modificar un archivo con el lápiz de GitHub, o clonar el proyecto en un equipo con Git:
 
 ```sh
-git remote add origin https://github.com/TU-USUARIO/pram-feria-tp.git
-git push -u origin main
+git clone https://github.com/matias05090-prog/pram-feria-tp.git
+cd pram-feria-tp
+npm run check
 ```
 
-Reemplaza `TU-USUARIO` por el titular y usa el inicio de sesión normal de GitHub. No pongas contraseñas o tokens en los archivos del proyecto. Si el repositorio remoto ya contiene archivos, integra sus cambios antes de subir; no uses `--force`.
+Después de tus cambios, verifica, crea un commit y sube a `main` con tu sesión habitual de GitHub. Consulta **Actions → Verificar y publicar PRAM** para ver el resultado. No uses `--force` ni subas los respaldos de visitantes. No incluyas contraseñas ni tokens en los archivos.
+
+El ZIP contiene todos los archivos para abrir o editar la web, sin el historial `.git`. La carpeta de trabajo está vinculada al repositorio mediante el remoto `origin`.
 
 Documentación oficial consultada: [workflows de GitHub Pages](https://docs.github.com/en/pages/getting-started-with-github-pages/using-custom-workflows-with-github-pages) y [qué es GitHub Pages](https://docs.github.com/en/pages/getting-started-with-github-pages/what-is-github-pages).
 
@@ -85,3 +85,4 @@ Matías Bustamante · Víctor Sanabria · Ian Arenas · Sabina Huechucoy.
 ## Próximo paso para un piloto real
 
 Validar el protocolo y los contactos con la pyme; acordar responsables y mediciones; después conectar una base de datos con acceso para el equipo, permisos, respaldo, moderación de experiencias y un canal real de respuesta. La prioridad es probar el proceso con pocos casos y medirlo antes de ampliar las funciones.
+

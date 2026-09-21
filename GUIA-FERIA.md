@@ -2,7 +2,7 @@
 
 ## Antes de empezar
 
-Abre `index.html`. Para la demostración no necesitas Internet: la página, las fotos y las herramientas están en la carpeta. Si usas localhost, mantén abierto el servidor. Usa siempre el mismo navegador y la misma dirección para conservar los registros.
+Abre `index.html`: verás «Bienvenidos a PRAM». Pulsa **Entrar a PRAM** para llegar al menú independiente. Desde allí puedes abrir cada sección. Para la demostración no necesitas Internet: la página, las fotos y las herramientas están en la carpeta. Si usas localhost, mantén abierto el servidor. Usa siempre el mismo navegador y la misma dirección para conservar los registros.
 
 Haz una prueba de pantalla y sonido del equipo de exposición si corresponde. En la web, el botón **Vista móvil** del pie de página permite mostrar cómo se adapta a un celular. Puedes aumentar el zoom del navegador para una pantalla de proyección.
 
@@ -52,3 +52,4 @@ Descarga el CSV de casos y el respaldo JSON si quieres conservar la demostració
 5. **Revisar quince minutos por semana.** Reconocer un acierto, identificar un problema repetido y elegir una acción con fecha y responsable.
 
 Las metas de mejora son hipótesis a evaluar. La demostración muestra el funcionamiento del proceso; no sustituye el trabajo de campo.
+
