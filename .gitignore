@@ -1,0 +1,8 @@
+node_modules/
+.DS_Store
+Thumbs.db
+*.log
+PRAM-respaldo-*.json
+PRAM-casos-*.csv
+.env
+.env.*

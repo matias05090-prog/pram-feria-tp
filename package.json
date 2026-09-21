@@ -1,0 +1,11 @@
+{
+  "name": "pram-feria-tp",
+  "version": "1.0.0",
+  "private": true,
+  "description": "PRAM: atención al cliente y mejora continua para pymes. Proyecto Feria TP.",
+  "scripts": {
+    "start": "node scripts/serve.mjs",
+    "check": "node --check app.js && node scripts/check.mjs"
+  },
+  "engines": {"node": ">=20"}
+}
