@@ -4,7 +4,7 @@ Sitio web estático del proyecto **Procesos de Resolución Administrativa y Mejo
 
 ## Ver la página
 
-- Producción en Vercel: se completa en este documento después del primer despliegue.
+- Producción en Vercel: <https://pram-feria-tp.vercel.app/>
 - Respaldo en GitHub Pages: <https://matias05090-prog.github.io/pram-feria-tp/>
 - Repositorio: <https://github.com/matias05090-prog/pram-feria-tp>
 
@@ -38,4 +38,3 @@ Las versiones multipágina anteriores no se perdieron: siguen disponibles en el 
 ## Datos
 
 Esta es una demostración estática. Los formularios usan el almacenamiento del navegador; no envían datos a un servidor ni comparten registros entre dispositivos. No guardes contraseñas, datos sensibles ni respaldos de visitantes en el repositorio.
-
