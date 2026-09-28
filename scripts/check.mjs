@@ -1,23 +1,45 @@
 import fs from 'node:fs';
 import path from 'node:path';
-import {fileURLToPath} from 'node:url';
-const root=path.resolve(path.dirname(fileURLToPath(import.meta.url)),'..');
-const pages=fs.readdirSync(root).filter(name=>name.endsWith('.html'));
-const sources=new Map(pages.map(name=>[name,fs.readFileSync(path.join(root,name),'utf8')]));
-const problems=[];
-let totalIds=0;
-for(const [name,html] of sources){
-  const ids=[...html.matchAll(/\bid="([^"]+)"/g)].map(m=>m[1]);totalIds+=ids.length;
-  if(new Set(ids).size!==ids.length)problems.push(`${name}: identificadores duplicados.`);
-  if([...html.matchAll(/<h1\b/g)].length!==1)problems.push(`${name}: debe tener un título principal.`);
-  for(const [,asset] of html.matchAll(/(?:src|href)="([^"]+)"/g)){
-    if(/^(https?:|mailto:|about:)/.test(asset))continue;
-    const [beforeHash,anchor]=asset.split('#');
-    const file=beforeHash.split('?')[0]||name;
-    if(!fs.existsSync(path.join(root,file))){problems.push(`${name}: archivo ausente ${file}`);continue;}
-    if(anchor&&sources.has(file)&&!sources.get(file).includes(`id="${anchor}"`))problems.push(`${name}: destino inexistente ${file}#${anchor}`);
-  }
-  if(html.includes('__MENU__')||html.includes('[ENLACE_'))problems.push(`${name}: marcador pendiente.`);
+import vm from 'node:vm';
+import { fileURLToPath } from 'node:url';
+
+const root = path.resolve(path.dirname(fileURLToPath(import.meta.url)), '..');
+const pagePath = path.join(root, 'index.html');
+const html = fs.readFileSync(pagePath, 'utf8');
+const problems = [];
+
+const ids = [...html.matchAll(/\bid="([^"]+)"/g)].map((match) => match[1]);
+const duplicateIds = [...new Set(ids.filter((id, index) => ids.indexOf(id) !== index))];
+if (duplicateIds.length) problems.push(`Identificadores duplicados: ${duplicateIds.join(', ')}`);
+
+if ([...html.matchAll(/<h1\b/g)].length !== 1) {
+  problems.push('index.html debe tener exactamente un título principal h1.');
 }
-if(problems.length){console.error(problems.join('\n'));process.exit(1);}
-console.log(`PRAM verificado: ${pages.length} páginas, ${totalIds} identificadores, destinos internos y recursos locales disponibles.`);
+
+for (const [, target] of html.matchAll(/(?:src|href)="([^"]+)"/g)) {
+  if (/^(https?:|mailto:|tel:|data:)/.test(target)) continue;
+  if (target.startsWith('#')) {
+    const anchor = decodeURIComponent(target.slice(1));
+    if (anchor && !ids.includes(anchor)) problems.push(`Destino interno inexistente: ${target}`);
+    continue;
+  }
+  const file = target.split(/[?#]/)[0];
+  if (file && !fs.existsSync(path.join(root, file))) problems.push(`Recurso ausente: ${file}`);
+}
+
+for (const [index, match] of [...html.matchAll(/<script(?:\s[^>]*)?>([\s\S]*?)<\/script>/gi)].entries()) {
+  try {
+    new vm.Script(match[1], { filename: `index.html:script-${index + 1}` });
+  } catch (error) {
+    problems.push(`JavaScript inválido en bloque ${index + 1}: ${error.message}`);
+  }
+}
+
+if (/\[ENLACE_|\[@usuario\]/.test(html)) problems.push('Queda un marcador de contenido pendiente.');
+
+if (problems.length) {
+  console.error(problems.join('\n'));
+  process.exit(1);
+}
+
+console.log(`PRAM verificado: 1 página, ${ids.length} identificadores, recursos y JavaScript correctos.`);

@@ -21,14 +21,12 @@ jobs:
       pages: read
     steps:
       - uses: actions/checkout@v6
-      - name: Verificar JavaScript y recursos
-        run: |
-          node --check app.js
-          node scripts/check.mjs
+      - name: Verificar página y recursos
+        run: node scripts/check.mjs
       - name: Preparar sitio estático
         run: |
           mkdir _site
-          cp *.html styles.css app.js .nojekyll _site/
+          cp index.html .nojekyll _site/
           cp -r assets _site/
       - name: Configurar Pages
         if: github.event_name != 'pull_request'
